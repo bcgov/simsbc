@@ -12,11 +12,19 @@ Real-time access to biodiversity data and projects from British Columbia's Speci
 
 SIMS is a web application for managing, submitting, and accessing biodiversity data in British Columbia. It is designed for biologists working for or in partnership with the Province, supporting relationships between government, industry, Indigenous communities, and consultants to advance natural resource stewardship.
 
+```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/"
+)
+library(simsbc)
+```
+
 ### Installation
 
 You can install `simsbc` from GitHub using the [remotes](https://cran.r-project.org/package=remotes) package.
-
-```{r echo = F, results = 'hide', message = F, warning = F}
+```{r eval = F}
 install.packages("remotes")
 remotes::install_github("bcgov/simsbc")
 library(simsbc)
@@ -40,6 +48,22 @@ The Species Inventory Management System organizes ecological data into Projects 
 
 - `get_surveys()` returns a dataframe of Surveys from a specific Project.
 - `get_survey_details()` returns an object of class Survey, which has various attributes including objectives, species of interest and start and end dates.
+
+### Examples
+
+```{r eval = F}
+## Login using an IDIR or BCeID through the browser
+login()
+
+## Get a dataframe of all Projects that you belong to
+get_my_projects()
+
+## Get the details of a specific Project, identified in the output of `get_my_projects()`
+get_project_details(project_id = 1)
+
+## Get a dataframe of all Surveys in a specific Project
+get_surveys(survey_id = 2, project_id = 1)
+```
 
 ### Coming Soon
 

@@ -16,6 +16,12 @@ consultants to advance natural resource stewardship.
 You can install `simsbc` from GitHub using the
 [remotes](https://cran.r-project.org/package=remotes) package.
 
+``` r
+install.packages("remotes")
+remotes::install_github("bcgov/simsbc")
+library(simsbc)
+```
+
 ### Authentication
 
 You must use `login_sims()` to login to the Species Inventory Management
@@ -56,6 +62,22 @@ Projects and Surveys.
 - `get_survey_details()` returns an object of class Survey, which has
   various attributes including objectives, species of interest and start
   and end dates.
+
+### Examples
+
+``` r
+## Login using an IDIR or BCeID through the browser
+login()
+
+## Get a dataframe of all Projects that you belong to
+get_my_projects()
+
+## Get the details of a specific Project, identified in the output of `get_my_projects()`
+get_project_details(project_id = 1)
+
+## Get a dataframe of all Surveys in a specific Project
+get_surveys(survey_id = 2, project_id = 1)
+```
 
 ### Coming Soon
 
