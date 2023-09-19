@@ -2,14 +2,17 @@
 
 # simsbc
 
-Real-time access to biodiversity data and projects from British
-Columbia’s Species Inventory Management System (SIMS).
+Access to biodiversity data and projects from British Columbia’s Species
+Inventory Management System (SIMS).
 
 SIMS is a web application for managing, submitting, and accessing
 biodiversity data in British Columbia. It is designed for biologists
 working for or in partnership with the Province, supporting
 relationships between government, industry, Indigenous communities, and
 consultants to advance natural resource stewardship.
+
+This package is intended for biologists who manage managing data in SIMS
+can use this package to retrieve
 
 ### Installation
 
@@ -18,21 +21,29 @@ You can install `simsbc` from GitHub using the
 
 ``` r
 install.packages("remotes")
+
+# Install the simsbc package from GitHub
 remotes::install_github("bcgov/simsbc")
+
 library(simsbc)
 ```
 
 ### Authentication
 
-You must use `login_sims()` to login to the Species Inventory Management
-System to access data.
+You must login to the Species Inventory Management System using the
+`login_sims()` function to access data.
 
-`login_sims()` will open a browser window where you can login with an
-IDIR (for internal government staff and contractors), Business BCeID, or
-Basic BCeID. After you login, R will save your temporary access token
-for `simsbc` functions to retrieve when called. You will need to call
-`login_sims()` again if your token expires or you clear your
-environment.
+``` r
+login_sims()
+```
+
+This function opens a browser window where you login by IDIR (for
+internal government staff and contractors), Business BCeID, or Basic
+BCeID. After you login, your temporary access token will be saved to
+your R environment.
+
+You will need to call `login_sims()` again if your token expires or you
+clear your environment.
 
 Unsure about how to login? [Learn about
 BCeIDs](https://www.bceid.ca/aboutbceid/).
@@ -76,14 +87,14 @@ get_my_projects()
 get_project_details(project_id = 1)
 
 ## Get a dataframe of all Surveys in a specific Project
-get_surveys(survey_id = 2, project_id = 1)
+get_surveys(project_id = 1)
 ```
 
 ### Coming Soon
 
 We are building rapidly towards letting biologists import species
-observations. You will soon be able to access species observations
-through `simsbc`.
+observations, after which we will build functions for retrieving species
+observations.
 
 ### Project Status
 

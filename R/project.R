@@ -5,9 +5,6 @@
 #' @export
 #'
 get_my_projects <- function() {
-  check_internet()
-  check_auth()
-
   req <- get_users_projects_route(pkg.env$biohubr_auth$user$system_user_id)
   resp <- sims_request(req_url = req) |> resp_body_json()
   if (length(resp) == 0) {
@@ -25,9 +22,6 @@ get_my_projects <- function() {
 #' @export
 #'
 get_all_projects <- function() {
-  check_internet()
-  check_auth()
-
   req <- get_all_projects_route()
   resp <- sims_request(req_url = req) |> resp_body_json()
   if (length(resp) == 0) {
@@ -47,9 +41,7 @@ get_all_projects <- function() {
 #' @export
 #'
 get_project_details <- function(project_id) {
-  check_internet()
-  check_auth()
-  check_id(project_id, 'project_id')
+  check_id(project_id, "project_id")
 
   req <- get_project_route(project_id)
   resp <- sims_request(req_url = req) |>

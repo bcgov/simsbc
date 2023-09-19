@@ -1,25 +1,3 @@
-# Format https requests for SIMS
-sims_request <- function(req_url, client = pkg.env$biohubr_auth$client) {
-  if (!has_internet()) stop("You are not connected to the internet.")
-  if (!has_auth()) stop("You are not logged in. Call `login_sims()` and try again.")
-
-  res <- tryCatch(
-    {
-      request(paste0(get_sims_api_route(), req_url)) |>
-        req_oauth_auth_code(client = client, auth_url = get_keycloak_auth_url()) |>
-        req_perform()
-    },
-    error = function(error) {
-      message(error)
-    },
-    warning = function(warning) {
-      message(warning)
-    }
-  )
-
-  res
-}
-
 #'
 has_internet <- function() {
   i <- try(suppressWarnings(readLines("https://www.google.com", n = 1)),
@@ -52,4 +30,26 @@ is_id <- function(id) {
 #'
 check_id <- function(id, var){
     if (!is_id(id)) stop(paste(var, "is not a valid ID."), call. = F)
+}
+
+# Format https requests for SIMS
+sims_request <- function(req_url, client = pkg.env$biohubr_auth$client) {
+  check_internet()
+  check_auth()
+
+  res <- tryCatch(
+    {
+      request(paste0(get_sims_api_route(), req_url)) |>
+        req_oauth_auth_code(client = client, auth_url = get_keycloak_auth_url()) |>
+        req_perform()
+    },
+    error = function(error) {
+      message(error)
+    },
+    warning = function(warning) {
+      message(warning)
+    }
+  )
+
+  res
 }

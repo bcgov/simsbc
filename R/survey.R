@@ -5,8 +5,6 @@
 #' @return A dataframe
 #' @export
 get_surveys <- function(project_id) {
-  check_internet()
-  check_auth()
   check_id(project_id, "project_id")
 
   req <- get_all_surveys_route(project_id)
@@ -30,8 +28,7 @@ get_surveys <- function(project_id) {
 #' @return An object of class Survey
 #' @export
 get_survey_details <- function(survey_id, project_id) {
-  check_internet()
-  check_auth()
+
   check_id(project_id, "project_id")
   check_id(survey_id, "survey_id")
 
