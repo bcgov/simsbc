@@ -33,7 +33,7 @@ login_sims <- function() {
       output <- list(client, res_body)
       names(output) <- c("client", "user")
 
-      pkg.env$biohubr_auth <- output
+      pkg.env$simsbc_auth <- output
 
       invisible(res_body)
     },

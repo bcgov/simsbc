@@ -14,7 +14,7 @@ check_internet <- function() {
 
 #'
 has_auth <- function() {
-  !is.null(pkg.env$biohubr_auth$user$id)
+  !is.null(pkg.env$simsbc_auth$user$id)
 }
 
 #'
@@ -33,7 +33,7 @@ check_id <- function(id, var){
 }
 
 # Format https requests for SIMS
-sims_request <- function(req_url, client = pkg.env$biohubr_auth$client) {
+sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
   check_internet()
   check_auth()
 
