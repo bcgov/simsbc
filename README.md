@@ -11,8 +11,9 @@ working for or in partnership with the Province, supporting
 relationships between government, industry, Indigenous communities, and
 consultants to advance natural resource stewardship.
 
-This package is intended for biologists who manage managing data in SIMS
-can use this package to retrieve
+This package is intended for biologists who want to load data from SIMS
+into R, removing the need to manually export data from SIMS and import
+it into R.
 
 ### Installation
 
@@ -37,10 +38,10 @@ You must login to the Species Inventory Management System using the
 login_sims()
 ```
 
-This function opens a browser window where you login by IDIR (for
+This function opens a browser window where you can login by IDIR (for
 internal government staff and contractors), Business BCeID, or Basic
-BCeID. After you login, your temporary access token will be saved to
-your R environment.
+BCeID. After you login, your temporary SIMS access token will be saved
+to your R environment.
 
 You will need to call `login_sims()` again if your token expires or you
 clear your environment.
@@ -51,25 +52,22 @@ BCeIDs](https://www.bceid.ca/aboutbceid/).
 ### Features
 
 The Species Inventory Management System organizes ecological data into
-Projects and Surveys.
+Projects and Surveys, the latter of which contain species observations,
+captured or marked animals, and other data.
 
 - `get_my_projects()` returns a dataframe of Projects that you belong
   to. By default, these are Projects that you have created or have been
   invited to.
-
 - `get_all_projects()` returns a dataframe of all Projects that you have
   access to, including those that you do not belong to. Some Projects
   are secured under the [Species and Ecosystems Data and Information
   Security
   Policy](https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/laws-policies-standards-guidance/data-information-security)
   and may not be returned.
-
 - `get_project_details()` returns an object of class Project, which has
-  various attributes including name and objectives.
-
+  various attributes including a name and objectives.
 - `get_surveys()` returns a dataframe of Surveys from a specific
   Project.
-
 - `get_survey_details()` returns an object of class Survey, which has
   various attributes including objectives, species of interest and start
   and end dates.
@@ -98,8 +96,8 @@ observations.
 
 ### Project Status
 
-`simsbc` is experimental. New features will be released as the Species
-Inventory Management System’s API develops.
+This package is experimental. New features will be released as the
+Species Inventory Management System develops.
 
 ### Getting Help or Reporting an Issue
 

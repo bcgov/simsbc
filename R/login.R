@@ -35,7 +35,7 @@ login_sims <- function() {
 
       pkg.env$biohubr_auth <- output
 
-      res_body
+      invisible(res_body)
     },
     error = function(error) {
       error
