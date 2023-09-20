@@ -32,13 +32,15 @@ login_sims()
 
 `login_sims()` will open browser window where you can log in with an IDIR, Business BCeID, or Basic BCeID. IDIRs are used by BC Government staff and contractors while Business and Basic BCeIDs are used by organizations and individuals, respectively.
 
-There is no output from `login_sims()`. Instead, the function will create a temporary access token and save it in your R environment where other *simsbc* functions know to find it.
+There is no output from `login_sims()`. Instead, the function will create a temporary access token and save it in your R environment where other *simsbc* functions know to find it. 
 
-You will remain logged in until you go inactive for at least 15 to 30 minutes. If you do go inactive, you will need to call `login_sims()` again.
+You will remain logged in until you go inactive for at least 15 to 30 minutes. If you do go inactive, or you clear your R environment, you will need to call `login_sims()` again.
 
 ## Load Project Information
 
-Data is organized into Projects and Surveys, the latter of which are like subfolders of a Project that contain ecological data.
+Data is organized into Projects and Surveys, the latter of which are like Project subfolders. The actual ecological data is stored in these subfolders.
+
+# List all Projects
 
 To get data for one of your Surveys, you must know which Project that Survey belongs to. You can figure this out by first calling `get_my_projects()`.
 
@@ -46,7 +48,26 @@ To get data for one of your Surveys, you must know which Project that Survey bel
 get_my_projects()
 ```
 
-This will return a dataframe with basic information about each of the Projects that you have created or been invited to. Importantly, this dataframe will include the **Project ID** number that is needed when requesting information about that Project.
+This will return a dataframe with basic information about each of the Projects that you have created or been invited to. Importantly, this dataframe will include the **Project ID** number that is needed when requesting more information about a Project.
 
 **Note:** You can quickly find a Project's ID number by looking at the browser URL when viewing a Project at sims.nrs.gov.bc.ca. For example, `https://sims.nrs.gov.bc.ca/admin/projects/32/details` is **Project ID 32**.
 
+# Show details of a Project
+
+Once you know the ID of your desired Project, you can use `get_project_details(project_id)` to see more information about that Project.
+
+```{r}
+get_project_details(project_id = 1)
+```
+
+This will return an object of class SIMS Project, which is a custom class developed to handle all of the attributes that a Project can have.
+
+# List Surveys in a specific Project
+
+To get information about Surveys in a Project, you can use `get_surveys(project_id)`.
+
+```{r}
+get_surveys(project_id)
+```
+
+This will return a dataframe with basic information about each Survey in the specific Project. Importantly, this dataframe will include the **Survey ID** number that is needed when requesting more information about a Survey.
