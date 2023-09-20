@@ -3,10 +3,13 @@ template:
   bootstrap: 5
 navbar:
   structure:
-    right: [sims]
+    right: [sims, search, github]
+    left: [intro, articles]
   components:
+    intro:
+      text: Introduction
     sims:
-      text: Go to SIMS
+      text: Launch SIMS
       href: https://sims.nrs.gov.bc.ca
       aria-label: Species Inventory Management System
     articles:
@@ -14,5 +17,8 @@ navbar:
       menu:
       - text: Introduction
       - text: Logging in
-      - href: articles/starting.html
+        href: articles/starting.html
+    github:
+      icon: fa-github
+      href: https://github.com/bcgov/simsbc
 
