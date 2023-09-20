@@ -1,0 +1,95 @@
+---
+title: "Get Data"
+output: rmarkdown::html_vignette
+description: >
+  Learn how to get data from SIMS
+vignette: >
+  %\VignetteIndexEntry{Get Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+) 
+```
+
+This tutorial shows you how to load data from SIMS into R. We'll start by logging in and work towards loading Species Observations from one of your Surveys.
+
+## Load *simsbc*
+
+When you start R, you will need to load the *simsbc* package. You should run this function at the top of your R script.
+
+```{r setup, eval = F}
+library(simsbc)
+```
+
+## Authentication
+
+To use data-retrieving functions, you must first log in to SIMS through R.
+
+```{r, eval = F}
+login_sims()
+```
+
+This function will open a browser window where you can log in with an IDIR, Business BCeID, or Basic BCeID. IDIRs are used by BC Government staff and contractors while Business and Basic BCeIDs are used by organizations and individuals, respectively.
+
+There is no output from the login function. Instead, the function will create a temporary access token and save it in your R environment where other *simsbc* functions know to find it. If you are curious, or want to confirm that you are logged in, you can inspect the output like so:
+
+```{r, eval = F}
+pkg.env$simsbc_auth
+```
+
+You will remain logged in until you go inactive for 15-30 minutes. If you do go inactive, or you clear your R environment, you will need to log in again.
+
+## Load Project Information
+
+Ecological data is organized hierarchically: Projects, Surveys, Sampling Sites, Sampling Methods, Sampling Periods, then Species Observations and Individual Animals.
+
+Projects and Surveys are the gateway to most data of interest, including Species Observations. To load a set of Species Observations, you must know the Project and Survey to which those Observations belong.
+
+## Projects
+
+Projects are collaborative workspaces for biologists to co-create and co-manage data. Projects act like directories for finding Surveys and do not store ecological data directly.
+
+### List Your Projects
+
+You can load basic information about all of your Projects, including their Name and Objectives.
+
+```{r, eval = F}
+get_my_projects()
+```
+
+This will return a dataframe containing all Projects that you have created or been invited to. Importantly, this dataframe includes **Project ID**, which is the unique identifier needed to load more detailed information about a Project.
+
+### Show details of a Project
+
+Once you know a Project's ID, you can load more detailed information about that Project, including its members.
+
+```{r, eval = F}
+get_project_details(project_id = 1)
+```
+
+Rather than return a dataframe, this will return a variable of class "SIMS Project". This is a custom class designed to handle the variety of attributes that a Project has. 
+
+### List Surveys in a Project
+
+Knowing a Project ID, you can load basic information about all of your Surveys in that Project.
+
+```{r, eval = F}
+get_surveys(project_id)
+```
+
+This will return a dataframe containing all Surveys in the specified Project. This dataframe includes **Survey ID**, which is the number needed to load more detail information about a Project, alongside the Project ID.
+
+### Show details of a Survey
+
+Knowing a Survey's ID, you can load more detailed information about that Survey, including its species of interest and start and end dates.
+
+```{r, eval = F}
+get_survey_details(survey_id, project_id)
+```
+
+This will return a variable of class "SIMS Survey". Like "SIMS Project", this is a custom class that handles the variety of attributes that a Survey has.

@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-*simsbc* aims to make your data more accessible. You can load species observations and other data into a dataframe without needing to export and import intermediate files.
+*simsbc* aims to make your ecological data more accessible. You can load species observations and other data into a dataframe without needing to export and import intermediate files.
 
 ## Getting Access
 
-If you aren't already a SIMS user, you can start by [submitting an access request](https://sims.nrs.gov.bc.ca). Your access request will only be approved if it is clear that you will be managing ecological data from British Columbia.
+If you aren't already a SIMS user, you can start by [submitting an access request](https://sims.nrs.gov.bc.ca). Your access request will only be approved if it is clear that you will be managing ecological data in British Columbia.
 
 We are working on a separate, public-facing application for users who simply want to obtain data from other biologists' projects.
 
@@ -29,24 +29,32 @@ After receiving access, you can install *simsbc* from GitHub using the [remotes]
 # Run only once to be able to install packages from GitHub
 install.packages("remotes")
 
-# Run only once to uses simsbc, or whenever you want to get the latest changes
+# Run only once to use simsbc, or whenever you want to get the latest changes
 remotes::install_github("bcgov/simsbc")
 
-# Run everytime you start R at the top of your script, after install_github()
+# Run every time you start R
 library(simsbc)
 ```
 
-We expect to release new features frequently as we are early in development. To use any newly built functions, you must reinstall *simsbc* from GitHub.
+We expect to release new features frequently. To use any newly built functions, you must reinstall *simsbc* from GitHub.
 
-Some functions may break unexpectedly as we make improvements to existing code, so we recommend not relying exclusively on *simsbc* until we announce our first proper release.
+Some functions may break unexpectedly as we make frequent improvements to existing code, so we recommend not relying exclusively on *simsbc* until we announce our first proper release.
+
+## Usage
+
+We have tutorials for many common use cases:
+
+- (Get data)[get_data.html]
 
 ## Contributing
 
-### Contributing Ideas
+All contributions are valuable and ideas are just as important as code!
+
+### Ideas
 
 If you have ideas for useful functions or improvements, please contact macgregor.aubertin-young@gov.bc.ca. Hearing your ideas will also help us prioritize what to build next.
 
-### Contributing Code
+### Code
 
 If you want to contribute code, please see our [CONTRIBUTING](https://github.com/bcgov/simsbc/blob/main/CONTRIBUTING.md) guidelines.
 

@@ -16,9 +16,11 @@ navbar:
     tutorials:
       text: Tutorials
       menu:
-      - text: Introduction
-      - text: How to get data
-        href: articles/starting.html
+      - text: Getting started
+      - text: Get data
+        href: articles/get_data.html
+      - text: Advanced
+      - text: coming soon...
     github:
       icon: fa-github
       href: https://github.com/bcgov/simsbc
