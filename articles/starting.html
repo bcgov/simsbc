@@ -44,9 +44,11 @@
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/starting.html">Getting Started</a>
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
+    <h6 class="dropdown-header" data-toc-skip>Introduction</h6>
+    <h6 class="dropdown-header" data-toc-skip>Logging in</h6>
+    <a class="dropdown-item" href="../articles/starting.html"></a>
   </div>
 </li>
 <li class="nav-item">
@@ -57,7 +59,11 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://sims.nrs.gov.bc.ca" aria-label="Species Inventory Management System">Go to SIMS</a>
+</li>
+      </ul>
 </div>
 
     
@@ -78,15 +84,15 @@
 
     
     
-<p>This page shows you how to get information about your SIMS Projects
-in R. We’ll start by logging in to SIMS through R to authenticate our
-requests. Next, we’ll request information from SIMS about Projects that
-we belong to.</p>
+<p>This tutorial shows you how to get information about your SIMS
+Projects in R. We’ll start by logging in to SIMS through R to
+authenticate our requests. Next, we’ll request information from SIMS
+about Projects that we belong to.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bcgov.github.io/simsbc/">simsbc</a></span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
-</h3>
+<div class="section level2">
+<h2 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+</h2>
 <p>You must log in to SIMS through R for most <em>simsbc</em> functions
 to work:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -102,16 +108,15 @@ environment where other <em>simsbc</em> functions know to find it.</p>
 minutes. If you do go inactive, or you clear your R environment, you
 will need to call <code><a href="../reference/login_sims.html">login_sims()</a></code> again.</p>
 </div>
-<div class="section level3">
-<h3 id="load-project-information">Load Project Information<a class="anchor" aria-label="anchor" href="#load-project-information"></a>
-</h3>
+<div class="section level2">
+<h2 id="load-project-information">Load Project Information<a class="anchor" aria-label="anchor" href="#load-project-information"></a>
+</h2>
 <p>Data is organized into Projects and Surveys, the latter of which are
 like Project subfolders. The actual ecological data is stored in these
 subfolders.</p>
-</div>
-<div class="section level2">
-<h2 id="list-all-projects">List all Projects<a class="anchor" aria-label="anchor" href="#list-all-projects"></a>
-</h2>
+<div class="section level3">
+<h3 id="list-all-projects">List all Projects<a class="anchor" aria-label="anchor" href="#list-all-projects"></a>
+</h3>
 <p>To get data for one of your Surveys, you must know which Project that
 Survey belongs to. You can figure this out by first calling
 <code><a href="../reference/get_my_projects.html">get_my_projects()</a></code>.</p>
@@ -127,9 +132,9 @@ For example,
 <code>https://sims.nrs.gov.bc.ca/admin/projects/32/details</code> is
 <strong>Project ID 32</strong>.</p>
 </div>
-<div class="section level2">
-<h2 id="show-details-of-a-project">Show details of a Project<a class="anchor" aria-label="anchor" href="#show-details-of-a-project"></a>
-</h2>
+<div class="section level3">
+<h3 id="show-details-of-a-project">Show details of a Project<a class="anchor" aria-label="anchor" href="#show-details-of-a-project"></a>
+</h3>
 <p>Once you know the ID of your desired Project, you can use
 <code>get_project_details(project_id)</code> to see more information
 about that Project.</p>
@@ -139,9 +144,9 @@ about that Project.</p>
 class developed to handle all of the attributes that a Project can
 have.</p>
 </div>
-<div class="section level2">
-<h2 id="list-surveys-in-a-specific-project">List Surveys in a specific Project<a class="anchor" aria-label="anchor" href="#list-surveys-in-a-specific-project"></a>
-</h2>
+<div class="section level3">
+<h3 id="list-surveys-in-a-specific-project">List Surveys in a specific Project<a class="anchor" aria-label="anchor" href="#list-surveys-in-a-specific-project"></a>
+</h3>
 <p>To get information about Surveys in a Project, you can use
 <code>get_surveys(project_id)</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -150,6 +155,7 @@ have.</p>
 in the specific Project. Importantly, this dataframe will include the
 <strong>Survey ID</strong> number that is needed when requesting more
 information about a Survey.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
