@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ) 
 ```
 
-This page shows you how to get information about your SIMS Projects in R. We'll start by logging in to SIMS through R to authenticate our requests. Next, we'll request information from SIMS about Projects that we belong to.
+This tutorial shows you how to get information about your SIMS Projects in R. We'll start by logging in to SIMS through R to authenticate our requests. Next, we'll request information from SIMS about Projects that we belong to.
 
 ```{r setup, eval = F}
 library(simsbc)
@@ -40,7 +40,7 @@ You will remain logged in until you go inactive for at least 15 to 30 minutes. I
 
 Data is organized into Projects and Surveys, the latter of which are like Project subfolders. The actual ecological data is stored in these subfolders.
 
-# List all Projects
+### List all Projects
 
 To get data for one of your Surveys, you must know which Project that Survey belongs to. You can figure this out by first calling `get_my_projects()`.
 
@@ -52,7 +52,7 @@ This will return a dataframe with basic information about each of the Projects t
 
 **Note:** You can quickly find a Project's ID number by looking at the browser URL when viewing a Project at sims.nrs.gov.bc.ca. For example, `https://sims.nrs.gov.bc.ca/admin/projects/32/details` is **Project ID 32**.
 
-# Show details of a Project
+### Show details of a Project
 
 Once you know the ID of your desired Project, you can use `get_project_details(project_id)` to see more information about that Project.
 
@@ -62,7 +62,7 @@ get_project_details(project_id = 1)
 
 This will return an object of class SIMS Project, which is a custom class developed to handle all of the attributes that a Project can have.
 
-# List Surveys in a specific Project
+### List Surveys in a specific Project
 
 To get information about Surveys in a Project, you can use `get_surveys(project_id)`.
 

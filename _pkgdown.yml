@@ -1,3 +1,18 @@
 url: https://bcgov.github.io/simsbc/
 template:
   bootstrap: 5
+navbar:
+  structure:
+    right: [sims]
+  components:
+    sims:
+      text: Go to SIMS
+      href: https://sims.nrs.gov.bc.ca
+      aria-label: Species Inventory Management System
+    articles:
+      text: Tutorials
+      menu:
+      - text: Introduction
+      - text: Logging in
+      - href: articles/starting.html
+
