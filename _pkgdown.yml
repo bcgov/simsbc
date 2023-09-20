@@ -1,5 +1,3 @@
 url: https://bcgov.github.io/simsbc/
 template:
   bootstrap: 5
-home:
-  sidebar: FALSE

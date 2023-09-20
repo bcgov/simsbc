@@ -1,0 +1,52 @@
+---
+title: "Getting Started"
+output: rmarkdown::html_vignette
+description: >
+  Learn how to succesfully request data
+vignette: >
+  %\VignetteIndexEntry{Getting started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This page shows you how to get information about your SIMS Projects in R. We'll start by logging in to SIMS through R to authenticate our requests. Next, we'll request information from SIMS about Projects that we belong to.
+
+```{r setup}
+library(simsbc)
+```
+
+## Authentication
+
+You must log in to SIMS through R for most *simsbc* functions to work:
+
+```{r}
+login_sims()
+```
+
+`login_sims()` will open browser window where you can log in with an IDIR, Business BCeID, or Basic BCeID. IDIRs are used by BC Government staff and contractors while Business and Basic BCeIDs are used by organizations and individuals, respectively.
+
+There is no output from `login_sims()`. Instead, the function will create a temporary access token and save it in your R environment where other *simsbc* functions know to find it.
+
+You will remain logged in until you go inactive for at least 15 to 30 minutes. If you do go inactive, you will need to call `login_sims()` again.
+
+## Load Project Information
+
+Data is organized into Projects and Surveys, the latter of which are like subfolders of a Project that contain ecological data.
+
+To get data for one of your Surveys, you must know which Project that Survey belongs to. You can figure this out by first calling `get_my_projects()`.
+
+```{r}
+get_my_projects()
+```
+
+This will return a dataframe with basic information about each of the Projects that you have created or been invited to. Importantly, this dataframe will include the **Project ID** number that is needed when requesting information about that Project.
+
+**Note:** You can quickly find a Project's ID number by looking at the browser URL when viewing a Project at sims.nrs.gov.bc.ca. For example, `https://sims.nrs.gov.bc.ca/admin/projects/32/details` is **Project ID 32**.
+
