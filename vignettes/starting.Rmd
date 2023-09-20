@@ -13,7 +13,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
-)
+) 
 ```
 
 This page shows you how to get information about your SIMS Projects in R. We'll start by logging in to SIMS through R to authenticate our requests. Next, we'll request information from SIMS about Projects that we belong to.
