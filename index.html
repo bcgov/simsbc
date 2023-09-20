@@ -41,8 +41,10 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-tutorials">Tutorials</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-tutorials">
-    <h6 class="dropdown-header" data-toc-skip>Introduction</h6>
-    <a class="dropdown-item" href="articles/starting.html">How to get data</a>
+    <h6 class="dropdown-header" data-toc-skip>Getting started</h6>
+    <a class="dropdown-item" href="articles/get_data.html">Get data</a>
+    <h6 class="dropdown-header" data-toc-skip>Advanced</h6>
+    <h6 class="dropdown-header" data-toc-skip>coming soon...</h6>
   </div>
 </li>
       </ul>
@@ -71,13 +73,13 @@
 <div class="section level1">
 <div class="page-header"><h1 id="simsbc">simsbc<a class="anchor" aria-label="anchor" href="#simsbc"></a>
 </h1></div>
-<p>Access to biodiversity data and projects from British Columbia’s Species Inventory Management System (SIMS).</p>
+<p><em>simsbc</em> provides access to biodiversity data and projects from British Columbia’s Species Inventory Management System (SIMS).</p>
 <p>SIMS is a web application for managing, submitting, and accessing biodiversity data in British Columbia. It is designed for biologists working for or in partnership with the Province, supporting relationships between government, industry, Indigenous communities, and consultants to advance natural resource stewardship.</p>
-<p>This package is intended for biologists who want to load data from SIMS into R, removing the need to manually export data from SIMS and import it into R.</p>
+<p>The <em>simsbc</em> R package complements the web application by loading SIMS data directly into R, removing the need to import and export intermediate files and enabling real-time dashboards and analytics.</p>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
-<p>You can install <code>simsbc</code> from GitHub using the <a href="https://cran.r-project.org/package=remotes" class="external-link">remotes</a> package.</p>
+<p>You can install <em>simsbc</em> from GitHub using the <a href="https://cran.r-project.org/package=remotes" class="external-link">remotes</a> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span></span>
@@ -87,57 +89,16 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bcgov.github.io/simsbc/">simsbc</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="authentication">Authentication<a class="anchor" aria-label="anchor" href="#authentication"></a>
+<h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
-<p>You must login to the Species Inventory Management System using the <code><a href="reference/login_sims.html">login_sims()</a></code> function to access data.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/login_sims.html">login_sims</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This function opens a browser window where you can login by IDIR (for internal government staff and contractors), Business BCeID, or Basic BCeID. After you login, your temporary SIMS access token will be saved to your R environment.</p>
-<p>You will need to call <code><a href="reference/login_sims.html">login_sims()</a></code> again if your token expires or you clear your environment.</p>
-<p>Unsure about how to login? <a href="https://www.bceid.ca/aboutbceid/" class="external-link">Learn about BCeIDs</a>.</p>
-</div>
-<div class="section level3">
-<h3 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
-</h3>
-<p>The Species Inventory Management System organizes ecological data into Projects and Surveys, the latter of which contain species observations, captured or marked animals, and other data.</p>
 <ul>
-<li>
-<code><a href="reference/get_my_projects.html">get_my_projects()</a></code> returns a dataframe of Projects that you belong to. By default, these are Projects that you have created or have been invited to.</li>
-<li>
-<code><a href="reference/get_all_projects.html">get_all_projects()</a></code> returns a dataframe of all Projects that you have access to, including those that you do not belong to. Some Projects are secured under the <a href="https://www2.gov.bc.ca/gov/content/environment/natural-resource-stewardship/laws-policies-standards-guidance/data-information-security" class="external-link">Species and Ecosystems Data and Information Security Policy</a> and may not be returned.</li>
-<li>
-<code><a href="reference/get_project_details.html">get_project_details()</a></code> returns an object of class Project, which has various attributes including a name and objectives.</li>
-<li>
-<code><a href="reference/get_surveys.html">get_surveys()</a></code> returns a dataframe of Surveys from a specific Project.</li>
-<li>
-<code><a href="reference/get_survey_details.html">get_survey_details()</a></code> returns an object of class Survey, which has various attributes including objectives, species of interest and start and end dates.</li>
+<li>(Get data)[get_data.html]</li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+<h3 id="roadmap">Roadmap<a class="anchor" aria-label="anchor" href="#roadmap"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Login using an IDIR or BCeID through the browser</span></span>
-<span><span class="fu">login</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Get a dataframe of all Projects that you belong to</span></span>
-<span><span class="fu"><a href="reference/get_my_projects.html">get_my_projects</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Get the details of a specific Project, identified in the output of `get_my_projects()`</span></span>
-<span><span class="fu"><a href="reference/get_project_details.html">get_project_details</a></span><span class="op">(</span>project_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Get a dataframe of all Surveys in a specific Project</span></span>
-<span><span class="fu"><a href="reference/get_surveys.html">get_surveys</a></span><span class="op">(</span>project_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="coming-soon">Coming Soon<a class="anchor" aria-label="anchor" href="#coming-soon"></a>
-</h3>
-<p>We are building rapidly towards letting biologists import species observations, after which we will build functions for retrieving species observations.</p>
-</div>
-<div class="section level3">
-<h3 id="project-status">Project Status<a class="anchor" aria-label="anchor" href="#project-status"></a>
-</h3>
-<p>This package is experimental. New features will be released as the Species Inventory Management System develops.</p>
+<p>We are building rapidly towards letting biologists import species observations to SIMS, after which we will build functions for retrieving species observations.</p>
 </div>
 <div class="section level3">
 <h3 id="getting-help-or-reporting-an-issue">Getting Help or Reporting an Issue<a class="anchor" aria-label="anchor" href="#getting-help-or-reporting-an-issue"></a>
@@ -153,17 +114,17 @@
 <div class="section level3">
 <h3 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Copyright <span class="dv">2023</span> Province of British Columbia</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Licensed under the Apache License, Version <span class="fl">2.0</span> (the <span class="sc">&amp;</span>quot;License<span class="sc">&amp;</span>quot;);</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>you may not use this file except <span class="cf">in</span> compliance with the License.</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>You may obtain a copy of the License at</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span>www.apache.org<span class="sc">/</span>licenses<span class="sc">/</span>LICENSE<span class="fl">-2.0</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>Unless required by applicable law or agreed to <span class="cf">in</span> writing, software distributed under the License is distributed on an <span class="sc">&amp;</span>quot;AS IS<span class="sc">&amp;</span>quot; BASIS,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>See the License <span class="cf">for</span> the specific language governing permissions and limitations under the License.</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Copyright <span class="dv">2023</span> Province of British Columbia</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Licensed under the Apache License, Version <span class="fl">2.0</span> (the <span class="sc">&amp;</span>quot;License<span class="sc">&amp;</span>quot;);</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>you may not use this file except <span class="cf">in</span> compliance with the License.</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>You may obtain a copy of the License at</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>http<span class="sc">:</span><span class="er">//</span>www.apache.org<span class="sc">/</span>licenses<span class="sc">/</span>LICENSE<span class="fl">-2.0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Unless required by applicable law or agreed to <span class="cf">in</span> writing, software distributed under the License is distributed on an <span class="sc">&amp;</span>quot;AS IS<span class="sc">&amp;</span>quot; BASIS,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>See the License <span class="cf">for</span> the specific language governing permissions and limitations under the License.</span></code></pre></div>
 <hr>
 <p><em>This project was created using the <a href="https://github.com/bcgov/bcgovr" class="external-link">bcgovr</a> package.</em></p>
 </div>
