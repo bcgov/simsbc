@@ -1,0 +1,50 @@
+---
+title: "`r title`"
+author: "`r authors`"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    toc: no
+    number_sections: true
+documentclass: report
+--- 
+
+Prepared for `r prepared_for`.
+Data citation: Project ID `r project_id`, Survey ID `r survey_id`.
+
+\newpage
+
+```{=latex}
+\setcounter{tocdepth}{4}
+\tableofcontents
+```
+
+<!-- # Introduction -->
+
+<!-- ## Background -->
+
+<!-- `r background` -->
+
+<!-- ## Objectives -->
+
+<!-- `r objectives` -->
+
+<!-- # Methods -->
+
+<!-- ## Study Area -->
+
+<!-- `r study_area_description` -->
+
+<!-- `r study_area_map` -->
+
+<!-- ## Survey Design -->
+
+<!-- `r survey_design` -->
+
+<!-- ## Analysis -->
+
+<!-- # Results -->
+
+<!-- # Discussion -->
+
+<!-- # Conclusion -->

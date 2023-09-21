@@ -37,7 +37,7 @@ library(simsbc)
 
 ### Usage
 
-- (Get data)[https://bcgov.github.io/simsbc/articles/get_data.html]
+- [Get data](https://bcgov.github.io/simsbc/articles/get_data.html)
 
 ### Roadmap
 

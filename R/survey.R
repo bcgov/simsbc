@@ -29,6 +29,20 @@ get_surveys <- function(project_id) {
 #' @export
 get_survey_details <- function(survey_id, project_id) {
 
+  resp <- prep_survey_details(survey_id, project_id)
+
+  use_survey(resp)
+}
+
+#' Get details for a specific Survey
+#'
+#' @param survey_id The integer ID of a Survey for which to get details.
+#' @param project_id The integer ID of a Project from which to get Surveys.
+#'
+#' @return An object of class Survey
+#' @export
+prep_survey_details <- function(survey_id, project_id) {
+
   check_id(project_id, "project_id")
   check_id(survey_id, "survey_id")
 
@@ -36,7 +50,7 @@ get_survey_details <- function(survey_id, project_id) {
   resp <- sims_request(req_url = req) |>
     resp_body_json()
 
-  use_survey(resp)
+  resp
 }
 
 #'

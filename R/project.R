@@ -5,7 +5,7 @@
 #' @export
 #'
 get_my_projects <- function() {
-  req <- get_users_projects_route(pkg.env$biohubr_auth$user$system_user_id)
+  req <- get_users_projects_route(pkg.env$simsbc_auth$user$system_user_id)
   resp <- sims_request(req_url = req) |> resp_body_json()
   if (length(resp) == 0) {
     message("You do not have any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
