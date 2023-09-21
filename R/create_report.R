@@ -20,7 +20,7 @@ create_report_template <- function(survey_id, project_id, prepared_for) {
   species <- resp$surveyData$species$focal_species_names[[1]]
 #
 #   study_area_description <- resp$surveyData$location$survey_area_name
-#   prepared_for <- 'Ministry of Forests'
+  prepared_for <- 'Ministry of Forests'
 #
 #   background <- 'Custom background text'
 #

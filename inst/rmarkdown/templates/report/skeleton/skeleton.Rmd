@@ -9,7 +9,7 @@ output:
 documentclass: report
 --- 
 
-<!-- Prepared for `r prepared_for`. -->
+Prepared for `r prepared_for`.
 Data citation: Project ID `r project_id`, Survey ID `r survey_id`.
 
 \newpage
@@ -18,33 +18,3 @@ Data citation: Project ID `r project_id`, Survey ID `r survey_id`.
 \setcounter{tocdepth}{4}
 \tableofcontents
 ```
-
-<!-- # Introduction -->
-
-<!-- ## Background -->
-
-<!-- `r background` -->
-
-<!-- ## Objectives -->
-
-<!-- `r objectives` -->
-
-<!-- # Methods -->
-
-<!-- ## Study Area -->
-
-<!-- `r study_area_description` -->
-
-<!-- `r study_area_map` -->
-
-<!-- ## Survey Design -->
-
-<!-- `r survey_design` -->
-
-<!-- ## Analysis -->
-
-<!-- # Results -->
-
-<!-- # Discussion -->
-
-<!-- # Conclusion -->
