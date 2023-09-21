@@ -9,7 +9,7 @@ output:
 documentclass: report
 --- 
 
-Prepared for `r prepared_for`.
+<!-- Prepared for `r prepared_for`. -->
 Data citation: Project ID `r project_id`, Survey ID `r survey_id`.
 
 \newpage

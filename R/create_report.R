@@ -26,11 +26,12 @@ create_report_template <- function(survey_id, project_id, prepared_for) {
 #
 #   study_area_geometry <- create_polygon(resp$surveyData$locations[[1]]$geojson[[1]]$geometry$coordinates[[1]])
 #
-  timestamp <-gsub(':', '-', Sys.time())
+  # timestamp <-gsub(':', '-', Sys.time())
 
   file <- system.file("rmarkdown", "templates", "report", "skeleton", "skeleton.Rmd", package = "simsbc")
 
-  rmarkdown::render(file, output_file = glue("report_template_{timestamp}"))
+  # rmarkdown::render(file, output_file = glue("report_template_{timestamp}"))
+  rmarkdown::render(file, output_file = glue("report_template"))
   # rmarkdown::draft(file = 'report_template', template = 'rmarkdown/templates', package = 'simsbc')
 }
 
