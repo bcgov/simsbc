@@ -31,6 +31,9 @@
     <loc>https://bcgov.github.io/simsbc/news/index.html</loc>
   </url>
   <url>
+    <loc>https://bcgov.github.io/simsbc/reference/create_report_template.html</loc>
+  </url>
+  <url>
     <loc>https://bcgov.github.io/simsbc/reference/get_all_projects.html</loc>
   </url>
   <url>
@@ -50,5 +53,8 @@
   </url>
   <url>
     <loc>https://bcgov.github.io/simsbc/reference/login_sims.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/prep_survey_details.html</loc>
   </url>
 </urlset>
