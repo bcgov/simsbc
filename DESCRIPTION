@@ -13,7 +13,10 @@ RoxygenNote: 7.2.3
 Imports:
     httr2,
     dplyr,
-    glue
+    glue,
+    sf,
+    ggplot2,
+    bcmaps
 Suggests: 
     knitr,
     rmarkdown

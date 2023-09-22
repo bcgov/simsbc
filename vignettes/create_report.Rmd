@@ -1,0 +1,12 @@
+---
+title: "Get Data"
+output: rmarkdown::html_vignette
+description: >
+  Learn how to get data from SIMS
+vignette: >
+  %\VignetteIndexEntry{Get Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+You make a report by doing...
