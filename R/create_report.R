@@ -28,10 +28,10 @@ create_report_template <- function(
 
   species <- resp$surveyData$species$focal_species_names[[1]]
   #
-  #   study_area_description <- resp$surveyData$location$survey_area_name
+  study_area_description <- resp$surveyData$locations[[1]]$description
   prepared_for <- "Ministry of Forests"
   #
-  #   background <- 'Custom background text'
+  objectives <- resp$surveyData$purpose_and_methodology$additional_details
 
   #
   study_area_geometry <- create_polygon(resp$surveyData$locations[[1]]$geojson[[1]]$geometry$coordinates[[1]])
