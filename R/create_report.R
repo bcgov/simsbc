@@ -26,10 +26,10 @@ create_report_template <- function(
   start_date <- resp$surveyData$survey_details$start_date
   end_date <- resp$surveyData$survey_details$end_date
 
+
   species <- resp$surveyData$species$focal_species_names[[1]]
   #
   study_area_description <- resp$surveyData$locations[[1]]$description
-  prepared_for <- "Ministry of Forests"
   #
   objectives <- resp$surveyData$purpose_and_methodology$additional_details
 

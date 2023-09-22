@@ -38,6 +38,8 @@ Project ID `r project_id`, Survey ID `r survey_id`
 
 ## Background
 
+`r background_text`
+
 ## Objectives
 
 `r objectives`
@@ -48,35 +50,46 @@ Project ID `r project_id`, Survey ID `r survey_id`
 
 `r study_area_description`
 
-```{r, fig.width=10, fig.height=10, echo=FALSE}
-# plot(study_area_geometry$geometry)
-## Next load the Regional Districts data, then extract and plot the Kootenays
-
+```{r, fig.width=10, fig.height=10, echo=FALSE, message=FALSE}
 bc_bounds <- bc_bound(ask = FALSE)
 nr_raw <- nr_regions(ask = FALSE)
-nr <- nr_raw |> st_set_crs(st_crs(bc_bounds)) |> st_intersection(bc_bounds)
+nr <- nr_raw |> 
+  st_set_crs(st_crs(bc_bounds)) |> 
+  st_intersection(bc_bounds)
 
-study_area_proj <- study_area_geometry |> st_transform(crs=st_crs(nr))
+study_area_proj <- study_area_geometry |> 
+  st_transform(crs=st_crs(nr))
 
-custom_blue <- "#1e8dba"
+nr_int <- nr |> 
+  filter(st_intersects(geometry, study_area_proj, sparse = F))
 
-study_area_bc <- ggplot() +
+# Set colours
+colors <- RColorBrewer::brewer.pal(9, "Set3")
+custom_gray <- "#DCDCDC"
+dark_gray <- "#bfbfbf"
+
+basemap <- ggplot() +
   geom_sf(data = nr,
-          aes(fill = REGION_NAME, col = REGION_NAME, alpha = 0.4)) +
-  scale_fill_manual(values = RColorBrewer::brewer.pal(9, "Set3")) +
-  scale_color_manual(values = RColorBrewer::brewer.pal(9, "Set3")) +
-  geom_sf(data = study_area_geometry,
-          col = custom_blue, fill = custom_blue, alpha = 0.6) +
+          fill = custom_gray, col = dark_gray) +
+  geom_sf(data = nr_int,
+          aes(fill = REGION_NAME, col = REGION_NAME), alpha = 0.5) +
+  geom_sf_text(data = nr_int, aes(label = gsub(' Natural Resource Region', '', REGION_NAME)), alpha = 0.75) +
+  scale_fill_manual(values = colors) +
+  scale_color_manual(values = colors) +
   theme_void() +
   theme(legend.position = 'none')
 
-study_area_bc
+basemap + 
+  geom_sf(data = study_area_proj,
+          col = 'red', fill = 'red', alpha = 0.6, linewidth=5)
 ```
 
 ```{r, eval = T}
 sa_bbox <- study_area_proj |> st_bbox()
 
-study_area <- study_area_bc +
+study_area <- basemap +
+  geom_sf(data = study_area_proj,
+          col = 'red', fill = 'red', alpha = 0.6, linewidth=0.5) +
   coord_sf(xlim = c(sa_bbox[1], sa_bbox[3]),
            ylim =  c(sa_bbox[2], sa_bbox[4]))
 
