@@ -1,7 +1,7 @@
 #'
 has_internet <- function() {
   i <- try(suppressWarnings(readLines("https://www.google.com", n = 1)),
-    silent = TRUE
+           silent = TRUE
   )
 
   !inherits(i, "try-error")
@@ -29,7 +29,7 @@ is_id <- function(id) {
 
 #'
 check_id <- function(id, var){
-    if (!is_id(id)) stop(paste(var, "is not a valid ID."), call. = F)
+  if (!is_id(id)) stop(paste(var, "is not a valid ID."), call. = F)
 }
 
 # Format https requests for SIMS

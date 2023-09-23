@@ -16,6 +16,7 @@ Imports:
     glue,
     sf,
     ggplot2,
+    bcdata,
     bcmaps
 Suggests: 
     knitr,
