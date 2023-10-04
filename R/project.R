@@ -1,36 +1,19 @@
+
+
 #' Get Projects that the current user belongs to
 #'
 #' @return A dataframe
 #' @importFrom dplyr bind_rows
 #' @export
 #'
-get_my_projects <- function() {
-  req <- get_users_projects_route(pkg.env$simsbc_auth$user$system_user_id)
-  resp <- sims_request(req_url = req) |> resp_body_json()
-  if (length(resp) == 0) {
-    message("You do not have any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
-  } else {
-    resp <- lapply(resp, format_personal_project_resp) |> bind_rows()
+projects <- function(which = 'personal') {
+  if (!(which == 'personal' | raw == 'all')) stop(paste('`which` must be "personal" or "all", not', which))
+
+  if (which == 'personal') {
+    get_my_projects()
+  } else if (which == 'all') {
+    get_all_projects()
   }
-
-  resp
-}
-
-#' Get All Projects available to the current user
-#'
-#' @return A dataframe
-#' @export
-#'
-get_all_projects <- function() {
-  req <- get_all_projects_route()
-  resp <- sims_request(req_url = req) |> resp_body_json()
-  if (length(resp) == 0) {
-    message("You do not have access to any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
-  } else {
-    resp <- lapply(resp, format_all_project_resp) |> bind_rows()
-  }
-
-  resp
 }
 
 #' Get details for a specific Project
@@ -40,14 +23,53 @@ get_all_projects <- function() {
 #' @return An object of class Project
 #' @export
 #'
-get_project_details <- function(project_id) {
+project_details <- function(project_id, raw = FALSE) {
+  if (!(raw == TRUE | raw == FALSE)) stop(paste('`Raw` must be TRUE or FALSE, not', raw), call. = FALSE)
   check_id(project_id, "project_id")
 
-  req <- get_project_route(project_id)
-  resp <- sims_request(req_url = req) |>
+  res <- get_project_route(project_id) |>
+    sims_request(req_url = req) |>
     resp_body_json()
 
-  use_project(resp)
+  if (raw == FALSE){
+    res <- res |>
+      use_project()
+  }
+
+  res
+}
+
+#'
+#' @keywords internal
+get_my_projects <- function() {
+  req <- get_users_projects_route(pkg.env$simsbc_auth$user$system_user_id) |>
+    sims_request(req_url = req) |>
+    resp_body_json()
+
+  if (length(resp) == 0) {
+    message("You do not have any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
+  } else {
+    resp <- lapply(resp, format_personal_project_resp) |>
+      bind_rows()
+  }
+
+  resp
+}
+
+#'
+#' @keywords internal
+get_all_projects <- function() {
+  get_all_projects_route() |>
+    sims_request(req_url = req) |> resp_body_json()
+
+  if (length(resp) == 0) {
+    message("You do not have access to any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
+  } else {
+    resp <- lapply(resp, format_all_project_resp) |>
+      bind_rows()
+  }
+
+  resp
 }
 
 #'

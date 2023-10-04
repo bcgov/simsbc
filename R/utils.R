@@ -53,3 +53,8 @@ sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
 
   res
 }
+
+# Format API response from SIMS
+format_response <- function(res) {
+  lapply(res, unlist)
+}

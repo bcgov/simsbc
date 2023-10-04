@@ -1,35 +1,54 @@
 ---
-title: "`r title`"
-author: "`r authors`"
+# title: "`r title`"
+# author: "`r authors`"
 output: 
   word_document:
     toc: no
-    reference_docx: template.docx
+    reference_docx: template2.docx
 documentclass: report
 --- 
 
 ```{r, setup, include = FALSE}
 knitr::opts_chunk$set(
-  fig.width = 8, fig.height = 8, echo = F, message = F, warning = F, error = F
+  fig.width = 8, fig.height = 8, echo = F, message = F, warning = F, error = F, results = 'hide'
 )
 ```
 
-```{r, echo = F, results = 'hide'}
+```{r, echo = F}
 date <- format(Sys.Date(), format = "%B %d, %Y")
 ```
-
 
 :::{custom-style="Title Date"}
 `r date`
 :::
 
+:::{custom-style="Title"}
+`r title`
+:::
+
+:::{custom-style="Author"}
+```{r, results = 'asis'} 
+cat(paste0(authors, '  \n'))
+```
+:::
+
+\
+\
+
 :::{custom-style="Data Citation"}
-Species Inventory Management System Data Citation:
+Species Inventory Management System Data Citation
 :::
 
 :::{custom-style="Title Line"}
 Project ID `r project_id`, Survey ID `r survey_id`
 :::
+
+\
+\
+
+```{r, results = 'asis', eval = F} 
+knitr::include_graphics(system.file("assets", "cover_image_comp.jpeg", package = 'simsbc', mustWork = TRUE))
+```
 
 \newpage
 
@@ -56,7 +75,7 @@ Project ID `r project_id`, Survey ID `r survey_id`
 
 `r study_area_description`
 
-```{r, fig.width=10, fig.height=10, echo=FALSE, message=FALSE, dpi = 300}
+```{r study_area_map, fig.width=10, fig.height=10, echo=FALSE, message=FALSE, dpi = 300}
 sa <- study_area_geometry |>
   st_transform(crs = st_crs(get_crs()))
 
@@ -67,11 +86,9 @@ sa_map <- create_study_area_map(basemap, sa)
 sa_map
 ```
 
-```{r, dpi = 300}
-wmus <- get_wmus(sa)
-
+```{r study_area_map_zoom, dpi = 300}
 sa_map_z <-
-  create_study_area_map(basemap, sa, zoom = T)
+  create_study_area_map(basemap, sa, zoom = T, wmus = F)
 
 sa_map_z
 ```
