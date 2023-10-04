@@ -1,101 +1,46 @@
+projects <- function(which, ...) {
+  useMethod("projects")
+}
 
+projects.default <- function(which, ...) {
+  stop("No projects method for an object of class ", class(which),
+    call. = FALSE
+  )
+}
 
-#' Get Projects that the current user belongs to
-#'
-#' @return A dataframe
-#' @importFrom dplyr bind_rows
-#' @export
-#'
-projects <- function(which = 'personal') {
-  if (!(which == 'personal' | raw == 'all')) stop(paste('`which` must be "personal" or "all", not', which))
+projects.character <- function(which, ...) {
+  if (!(which == "personal" | raw == "all")) {
+    stop(paste('`which` must be "personal" or "all", not', which), call. = FALSE)
+  }
+
+  get_projects(which)
+}
+
+get_projects <- function(which){
 
   if (which == 'personal') {
-    get_my_projects()
+
+    resp <- get_users_projects_route(pkg.env$simsbc_auth$user$system_user_id) |>
+      sims_request(req_url = req) |>
+      resp_body_json() |>
+      lapply(format_personal_project_resp) |>
+      bind_rows()
+
+    if (length(resp) == 0){message("You do not have any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")}
+
   } else if (which == 'all') {
-    get_all_projects()
-  }
-}
 
-#' Get details for a specific Project
-#'
-#' @param project_id Unique ID of a Project for which to get details.
-#'
-#' @return An object of class Project
-#' @export
-#'
-project_details <- function(project_id, raw = FALSE) {
-  if (!(raw == TRUE | raw == FALSE)) stop(paste('`Raw` must be TRUE or FALSE, not', raw), call. = FALSE)
-  check_id(project_id, "project_id")
-
-  res <- get_project_route(project_id) |>
-    sims_request(req_url = req) |>
-    resp_body_json()
-
-  if (raw == FALSE){
-    res <- res |>
-      use_project()
-  }
-
-  res
-}
-
-#'
-#' @keywords internal
-get_my_projects <- function() {
-  req <- get_users_projects_route(pkg.env$simsbc_auth$user$system_user_id) |>
-    sims_request(req_url = req) |>
-    resp_body_json()
-
-  if (length(resp) == 0) {
-    message("You do not have any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
-  } else {
-    resp <- lapply(resp, format_personal_project_resp) |>
+    resp <- get_all_projects_route() |>
+      sims_request(req_url = req) |>
+      resp_body_json() |>
+      lapply(format_all_project_resp) |>
       bind_rows()
+
+    if (length(resp) == 0){message("You do not have access to any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")}
   }
 
   resp
 }
-
-#'
-#' @keywords internal
-get_all_projects <- function() {
-  get_all_projects_route() |>
-    sims_request(req_url = req) |> resp_body_json()
-
-  if (length(resp) == 0) {
-    message("You do not have access to any Projects. Create or be invited to one at sims.nrs.gov.bc.ca.")
-  } else {
-    resp <- lapply(resp, format_all_project_resp) |>
-      bind_rows()
-  }
-
-  resp
-}
-
-#'
-#' @keywords internal
-Project <- setRefClass("Project",
-  fields =
-    list(
-      id = "numeric",
-      name = "character",
-      role = "character",
-      start_date = "Date",
-      end_date = "ANY",
-      comments = "ANY",
-      objectives = "ANY",
-      members = "list"
-    ),
-  methods = list(show = function() {
-    cat(
-      # paste("Project", id, "with", runif(1), "Surveys"),
-      paste("Name: ", name),
-      paste("Start date: ", start_date),
-      paste("End date: ", end_date),
-      sep = "\n"
-    )
-  })
-)
 
 #'
 #' @keywords internal
@@ -124,9 +69,41 @@ format_all_project_resp <- function(project) {
   df
 }
 
+
+#### ----
+
+project_details <- function(project_id, ...) {
+  useMethod("project_details")
+}
+
+project_details.default <- function(project_id, ...) {
+  stop("No project_details method for an object of class ", class(which),
+    call. = FALSE
+  )
+}
+
+project_details.character <- function(project_id, ...) {
+  stop("`project_id` must be a positive integer, not a character", call. = FALSE)
+}
+
+project_details.numeric <- function(project_id, ...) {
+  if (!(raw == TRUE | raw == FALSE)) {
+    stop(paste("`Raw` must be TRUE or FALSE, not", raw), call. = FALSE)
+  }
+
+  check_id(project_id, "project_id")
+
+  res <- get_project_route(project_id) |>
+    sims_request(req_url = req) |>
+    resp_body_json()
+
+  ifelse(raw == FALSE, as.project(res), res)
+}
+
+
 #'
 #' @keywords internal
-use_project <- function(project) {
+as.project <- function(project) {
   p <- Project$new(
     id = as.numeric(project$projectData$project$project_id),
     name = project$projectData$project$project_name,

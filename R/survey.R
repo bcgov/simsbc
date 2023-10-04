@@ -6,17 +6,17 @@
 #' @export
 #'
 #' @examples
-surveys <- function(project_id){
-  useMethod("survey")
+surveys <- function(project_id) {
+  useMethod("surveys")
 }
 
-surveys.default <- function(project_id){
+surveys.default <- function(project_id) {
   stop("No surveys method for an object of class ", class(project_id),
-       call. = FALSE)
+    call. = FALSE
+  )
 }
 
-surveys.numeric <- function(project_id){
-
+surveys.numeric <- function(project_id) {
   resp <- get_all_surveys_route(project_id) |>
     sims_request() |>
     resp_body_json()
@@ -54,13 +54,18 @@ survey_details <- function(...) {
   useMethod("survey_details")
 }
 
-survey_details.default <- function(survey_id, project_id, raw = FALSE){
+survey_details.default <- function(survey_id, project_id, raw = FALSE) {
   stop("No survey_details method for an object of class ", class(survey_id),
-       call. = FALSE)
+    call. = FALSE
+  )
 }
 
 survey_details.character <- function(survey_id, project_id, raw = FALSE){
-  if (!(raw == TRUE | raw == FALSE)) stop(paste('`Raw` must be TRUE or FALSE, not', raw), call. = FALSE)
+  stop("`survey_id` must be a positive integer, not a character", call. = FALSE)
+}
+
+survey_details.numeric <- function(survey_id, project_id, raw = FALSE) {
+  if (!(raw == TRUE | raw == FALSE)) stop(paste("`Raw` must be TRUE or FALSE, not", raw), call. = FALSE)
 
   check_id(project_id, "project_id")
   check_id(survey_id, "survey_id")
