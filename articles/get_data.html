@@ -141,7 +141,7 @@ not store ecological data directly.</p>
 <p>You can load basic information about all of your Projects, including
 their Name and Objectives.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_my_projects.html">get_my_projects</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">get_my_projects</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>This will return a dataframe containing all Projects that you have
 created or been invited to. Importantly, this dataframe includes
 <strong>Project ID</strong>, which is the unique identifier needed to
@@ -153,7 +153,7 @@ load more detailed information about a Project.</p>
 <p>Once you know a Project’s ID, you can load more detailed information
 about that Project, including its members.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_project_details.html">get_project_details</a></span><span class="op">(</span>project_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">get_project_details</span><span class="op">(</span>project_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>Rather than return a dataframe, this will return a variable of class
 “SIMS Project”. This is a custom class designed to handle the variety of
 attributes that a Project has.</p>
@@ -164,7 +164,7 @@ attributes that a Project has.</p>
 <p>Knowing a Project ID, you can load basic information about all of
 your Surveys in that Project.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_surveys.html">get_surveys</a></span><span class="op">(</span><span class="va">project_id</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">get_surveys</span><span class="op">(</span><span class="va">project_id</span><span class="op">)</span></span></code></pre></div>
 <p>This will return a dataframe containing all Surveys in the specified
 Project. This dataframe includes <strong>Survey ID</strong>, which is
 the number needed to load more detail information about a Project,
@@ -177,7 +177,7 @@ alongside the Project ID.</p>
 that Survey, including its species of interest and start and end
 dates.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_survey_details.html">get_survey_details</a></span><span class="op">(</span><span class="va">survey_id</span>, <span class="va">project_id</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">get_survey_details</span><span class="op">(</span><span class="va">survey_id</span>, <span class="va">project_id</span><span class="op">)</span></span></code></pre></div>
 <p>This will return a variable of class “SIMS Survey”. Like “SIMS
 Project”, this is a custom class that handles the variety of attributes
 that a Survey has.</p>

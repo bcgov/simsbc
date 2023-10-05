@@ -34,22 +34,13 @@
     <loc>https://bcgov.github.io/simsbc/news/index.html</loc>
   </url>
   <url>
+    <loc>https://bcgov.github.io/simsbc/reference/animal_details.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/animals.html</loc>
+  </url>
+  <url>
     <loc>https://bcgov.github.io/simsbc/reference/create_report_template.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/get_all_projects.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/get_my_projects.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/get_project_details.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/get_survey_details.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/get_surveys.html</loc>
   </url>
   <url>
     <loc>https://bcgov.github.io/simsbc/reference/index.html</loc>
@@ -58,6 +49,21 @@
     <loc>https://bcgov.github.io/simsbc/reference/login_sims.html</loc>
   </url>
   <url>
-    <loc>https://bcgov.github.io/simsbc/reference/prep_survey_details.html</loc>
+    <loc>https://bcgov.github.io/simsbc/reference/measurements.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/project_details.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/projects.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/survey_details.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/survey_details.numeric.html</loc>
+  </url>
+  <url>
+    <loc>https://bcgov.github.io/simsbc/reference/surveys.html</loc>
   </url>
 </urlset>
