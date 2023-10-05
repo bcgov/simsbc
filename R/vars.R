@@ -9,3 +9,6 @@ get_keycloak_auth_url <- function() "https://dev.loginproxy.gov.bc.ca/auth/realm
 
 #'
 get_sims_api_route <- function() "https://api-dev-biohubbc.apps.silver.devops.gov.bc.ca/"
+
+#'
+get_cb_api_route <- function() "https://api-dev-critterbase.apps.silver.devops.gov.bc.ca/"

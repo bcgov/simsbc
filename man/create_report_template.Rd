@@ -4,7 +4,13 @@
 \alias{create_report_template}
 \title{Create the template of a report for a Survey.}
 \usage{
-create_report_template(survey_id, project_id, prepared_for, background_text)
+create_report_template(
+  survey_id,
+  project_id,
+  abstract_text = "abstract",
+  prepared_for_text = "sample",
+  background_text = "background"
+)
 }
 \arguments{
 \item{project_id}{}

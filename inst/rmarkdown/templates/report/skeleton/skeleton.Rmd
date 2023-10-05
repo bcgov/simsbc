@@ -1,29 +1,54 @@
 ---
-title: "`r title`"
-author: "`r authors`"
+# title: "`r title`"
+# author: "`r authors`"
 output: 
   word_document:
     toc: no
-    reference_docx: template.docx
+    reference_docx: template2.docx
 documentclass: report
 --- 
 
-```{r, echo = F, results = 'hide'}
-date <- format(Sys.Date(), format="%B %d, %Y")
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 8, fig.height = 8, echo = F, message = F, warning = F, error = F, results = 'hide'
+)
 ```
 
+```{r, echo = F}
+date <- format(Sys.Date(), format = "%B %d, %Y")
+```
 
 :::{custom-style="Title Date"}
 `r date`
 :::
 
+:::{custom-style="Title"}
+`r title`
+:::
+
+:::{custom-style="Author"}
+```{r, results = 'asis'} 
+cat(paste0(authors, '  \n'))
+```
+:::
+
+\
+\
+
 :::{custom-style="Data Citation"}
-Species Inventory Management System Data Citation:
+Species Inventory Management System Data Citation
 :::
 
 :::{custom-style="Title Line"}
 Project ID `r project_id`, Survey ID `r survey_id`
 :::
+
+\
+\
+
+```{r, results = 'asis', eval = F} 
+knitr::include_graphics(system.file("assets", "cover_image_comp.jpeg", package = 'simsbc', mustWork = TRUE))
+```
 
 \newpage
 
@@ -50,52 +75,23 @@ Project ID `r project_id`, Survey ID `r survey_id`
 
 `r study_area_description`
 
-```{r, fig.width=10, fig.height=10, echo=FALSE, message=FALSE}
-bc_bounds <- bc_bound(ask = FALSE)
-nr_raw <- nr_regions(ask = FALSE)
-nr <- nr_raw |> 
-  st_set_crs(st_crs(bc_bounds)) |> 
-  st_intersection(bc_bounds)
+```{r study_area_map, fig.width=10, fig.height=10, echo=FALSE, message=FALSE, dpi = 300}
+sa <- study_area_geometry |>
+  st_transform(crs = st_crs(get_crs()))
 
-study_area_proj <- study_area_geometry |> 
-  st_transform(crs=st_crs(nr))
+basemap <- create_nr_basemap(sa)
 
-nr_int <- nr |> 
-  filter(st_intersects(geometry, study_area_proj, sparse = F))
+sa_map <- create_study_area_map(basemap, sa)
 
-# Set colours
-colors <- RColorBrewer::brewer.pal(9, "Set3")
-custom_gray <- "#DCDCDC"
-dark_gray <- "#bfbfbf"
-
-basemap <- ggplot() +
-  geom_sf(data = nr,
-          fill = custom_gray, col = dark_gray) +
-  geom_sf(data = nr_int,
-          aes(fill = REGION_NAME, col = REGION_NAME), alpha = 0.5) +
-  geom_sf_text(data = nr_int, aes(label = gsub(' Natural Resource Region', '', REGION_NAME)), alpha = 0.75) +
-  scale_fill_manual(values = colors) +
-  scale_color_manual(values = colors) +
-  theme_void() +
-  theme(legend.position = 'none')
-
-basemap + 
-  geom_sf(data = study_area_proj,
-          col = 'red', fill = 'red', alpha = 0.6, linewidth=5)
+sa_map
 ```
 
-```{r, eval = T}
-sa_bbox <- study_area_proj |> st_bbox()
+```{r study_area_map_zoom, dpi = 300}
+sa_map_z <-
+  create_study_area_map(basemap, sa, zoom = T, wmus = F)
 
-study_area <- basemap +
-  geom_sf(data = study_area_proj,
-          col = 'red', fill = 'red', alpha = 0.6, linewidth=0.5) +
-  coord_sf(xlim = c(sa_bbox[1], sa_bbox[3]),
-           ylim =  c(sa_bbox[2], sa_bbox[4]))
-
-study_area
+sa_map_z
 ```
-
 
 ## Survey Design
 

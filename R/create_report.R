@@ -16,24 +16,20 @@
 create_report_template <- function(
     survey_id,
     project_id,
-    prepared_for,
-    background_text
+    abstract_text = 'abstract',
+    prepared_for_text = 'sample',
+    background_text = 'background'
     ) {
   resp <- prep_survey_details(survey_id, project_id)
 
   title <- resp$surveyData$survey_details$survey_name
-  authors <- resp$surveyData$participants[[2]]$display_name
+  authors <- lapply(resp$surveyData$participants, function(x) x$display_name)
   start_date <- resp$surveyData$survey_details$start_date
   end_date <- resp$surveyData$survey_details$end_date
-
-
-  species <- resp$surveyData$species$focal_species_names[[1]]
-  #
+  species <- lapply(resp$surveyData$species$focal_species_names, function(x) x)
   study_area_description <- resp$surveyData$locations[[1]]$description
-  #
   objectives <- resp$surveyData$purpose_and_methodology$additional_details
 
-  #
   study_area_geometry <- create_polygon(resp$surveyData$locations[[1]]$geojson[[1]]$geometry$coordinates[[1]])
 
   #
@@ -42,17 +38,16 @@ create_report_template <- function(
   file <- system.file("rmarkdown", "templates", "report", "skeleton", "skeleton.Rmd", package = "simsbc")
 
   # rmarkdown::render(file, output_file = glue("report_template_{timestamp}"))
-  rmarkdown::render(file, output_file = paste0("report_template_", timestamp))
+  rmarkdown::render(file, output_file = paste0("report_template_", timestamp),
+                    output_dir = getwd())
   # rmarkdown::draft(file = 'report_template', template = 'rmarkdown/templates', package = 'simsbc')
 }
 
-#'
 #' @keywords internal
 create_polygon <- function(vertices) {
 
   coords <- list()
   for (c in 1:length(vertices)) {
-    # vertex <- vertices[[c]]
     coords[[c]] <- c(vertices[[c]][[1]], vertices[[c]][[2]])
     names(coords[[c]]) <- c('lon', 'lat')
   }
