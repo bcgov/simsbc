@@ -7,22 +7,27 @@
 #'
 #' @examples
 surveys <- function(project_id) {
-  useMethod("surveys")
+  UseMethod("surveys")
 }
 
+#' @export
 surveys.default <- function(project_id) {
-  stop("No surveys method for an object of class ", class(project_id),
+  check_id(project_id, "project_id")
+  check_id(survey_id, "survey_id")
+
+  stop(paste0("No surveys method for an object of class ", class(project_id)),
     call. = FALSE
   )
 }
 
+#' @export
 surveys.numeric <- function(project_id) {
   resp <- get_all_surveys_route(project_id) |>
     sims_request() |>
     resp_body_json()
 
   if (length(resp) == 0) {
-    message(paste0("You do not have any Surveys in Project ", project_id))
+    message(paste0("There are no Surveys in Project ", project_id))
   } else {
     resp <- lapply(resp, format_surveys) |>
       bind_rows()
@@ -50,22 +55,37 @@ format_surveys <- function(x) {
 
 #### ---
 
-survey_details <- function(...) {
-  useMethod("survey_details")
+#' Title
+#'
+#' @param survey_id
+#' @param project_id
+#' @param raw
+#'
+#' @return
+#' @export
+#'
+#' @examples
+survey_details <- function(survey_id, project_id, raw = FALSE) {
+  UseMethod("survey_details")
 }
 
+#' @export
 survey_details.default <- function(survey_id, project_id, raw = FALSE) {
-  stop("No survey_details method for an object of class ", class(survey_id),
+  stop(paste0("No survey_details method for an object of class ", class(survey_id)),
     call. = FALSE
   )
 }
+#'
+#' #' @export
+#' survey_details.character <- function(survey_id, project_id, raw = FALSE){
+#'   stop("`survey_id` must be a positive integer, not a character", call. = FALSE)
+#' }
 
-survey_details.character <- function(survey_id, project_id, raw = FALSE){
-  stop("`survey_id` must be a positive integer, not a character", call. = FALSE)
-}
-
+#' @export
 survey_details.numeric <- function(survey_id, project_id, raw = FALSE) {
-  if (!(raw == TRUE | raw == FALSE)) stop(paste("`Raw` must be TRUE or FALSE, not", raw), call. = FALSE)
+  if (!(raw == TRUE | raw == FALSE)) {
+    stop(paste("`raw` must be TRUE or FALSE, not", raw), call. = FALSE)
+  }
 
   check_id(project_id, "project_id")
   check_id(survey_id, "survey_id")
@@ -74,13 +94,22 @@ survey_details.numeric <- function(survey_id, project_id, raw = FALSE) {
     sims_request() |>
     resp_body_json()
 
-  ifelse(raw == FALSE, as.survey(res), res)
+  if (!raw) {
+    res <- format_survey(res)
+  }
+
+  as.survey(res)
 }
 
 #'
 #' @keywords internal
-as.survey <- function(survey) {
-  s <- format_survey(survey)
-  class(s) <- "survey"
-  s
+as.survey <- function(x) {
+  class(x) <- "survey"
+  x
+}
+
+#'
+#' @keywords internal
+format_survey <- function(x) {
+  x
 }

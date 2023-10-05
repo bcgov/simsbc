@@ -21,3 +21,17 @@ get_all_surveys_route <- function(project_id) {
 get_survey_route <- function(survey_id, project_id) {
   return(paste0("api/project/", project_id, "/survey/", survey_id, "/view"))
 }
+
+# Critter routes
+get_survey_critters_route <- function(survey_id, project_id){
+  return(paste0("api/project/", project_id, "/survey/", survey_id, "/critters"))
+}
+get_critter_route <- function(critter_id){
+  # return(paste0("api/project/", project_id, "/survey/", survey_id, "/critters/", critter_id))
+  return(paste0("api/critter-data/critters/", critter_id))
+}
+
+# Critter attribute routes
+get_critter_measurements <- function(critter_id){
+  return(paste0("api/measurements/", critter_id))
+}
