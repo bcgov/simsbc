@@ -13,7 +13,6 @@ surveys <- function(project_id) {
 #' @export
 surveys.default <- function(project_id) {
   check_id(project_id, "project_id")
-  check_id(survey_id, "survey_id")
 
   stop(paste0("No surveys method for an object of class ", class(project_id)),
     call. = FALSE
@@ -23,8 +22,7 @@ surveys.default <- function(project_id) {
 #' @export
 surveys.numeric <- function(project_id) {
   resp <- get_all_surveys_route(project_id) |>
-    sims_request() |>
-    resp_body_json()
+    sims_req_from_json()
 
   if (length(resp) == 0) {
     message(paste0("There are no Surveys in Project ", project_id))
@@ -87,12 +85,11 @@ survey_details.numeric <- function(survey_id, project_id, raw = FALSE) {
     stop(paste("`raw` must be TRUE or FALSE, not", raw), call. = FALSE)
   }
 
-  check_id(project_id, "project_id")
   check_id(survey_id, "survey_id")
+  check_id(project_id, "project_id")
 
   res <- get_survey_route(survey_id, project_id) |>
-    sims_request() |>
-    resp_body_json()
+    sims_req_from_json()
 
   if (!raw) {
     res <- format_survey(res)

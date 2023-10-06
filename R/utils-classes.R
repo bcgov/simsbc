@@ -15,7 +15,7 @@ print.project <- function(x, ...) {
   p <- x$projectData
 
   cat(
-    paste0("Name: ", p$project$project_name),
+    paste0("Name: ", p$project$name),
     paste0("Objectives: ", p$objectives$objectives),
     paste0("Start date: ", p$project$start_date),
     paste0("End date: ", p$project$end_date),
@@ -36,3 +36,8 @@ print.project <- function(x, ...) {
 #'   )
 #' }
 #'
+
+#'
+summary.project <- function(x){
+
+}

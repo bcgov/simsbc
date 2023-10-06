@@ -7,49 +7,41 @@
 #' @export
 #'
 #' @examples
-projects <- function(all = FALSE) {
+projects <- function(all = FALSE, raw = FALSE) {
   UseMethod("projects", all)
 }
 
 #' @export
-projects.default <- function(all = FALSE) {
+projects.default <- function(all = FALSE, raw = FALSE) {
   stop(paste0("No projects method for an object of class ", class(all)),
     call. = FALSE
   )
 }
 
 #' @export
-projects.logical <- function(all = FALSE) {
+projects.logical <- function(all = FALSE, raw = FALSE) {
   if (!(all == TRUE | all == FALSE)) {
     stop(paste("`all` must be TRUE or FALSE, not", all), call. = FALSE)
   }
 
-  get_projects(all)
-}
-
-get_projects <- function(all = FALSE) {
   if (all) {
-    get_projects_helper(
-      get_all_projects_route() ,
-      format_all_projects,
-      "You do not have access to any Projects")
+    get_projects_helper(get_all_projects_route(), format_FUN = format_all_projects, 'You do not have access to any Projects', raw = raw)
   } else {
-    get_projects_helper(
-      get_users_projects_route(pkg.env$simsbc_auth$user$system_user_id),
-      format_personal_projects,
-      "You do not have any Projects")
+    get_projects_helper(get_users_projects_route(), format_FUN = format_personal_projects, 'You do not have any Projects', raw = raw)
   }
 }
 
-get_projects_helper <- function(route, lapply_FUN, message){
+#'
+get_projects_helper <- function(route, format_FUN, message, raw){
   resp <- route |>
-    sims_request() |>
-    resp_body_json() |>
-    lapply(lapply_FUN) |>
-    bind_rows()
+    sims_req_from_json()
 
-  if (length(resp) == 0) {
-    message(message)
+  if (length(resp) == 0) message(message)
+
+  if (!raw) {
+    resp <- resp |>
+      lapply(format_FUN) |>
+      bind_rows()
   }
 
   resp
@@ -57,24 +49,21 @@ get_projects_helper <- function(route, lapply_FUN, message){
 
 #'
 #' @keywords internal
-format_personal_projects <- function(project) {
+format_personal_projects <- function(x) {
   data.frame(
-    project_id = project$project_id,
-    project_name = project$project_name,
-    project_description = NA
-    # role = project$project_role_names[[1]]
+    project_id = x$project_id,
+    project_name = x$project_name
   )
 }
 
 #'
 #' @keywords internal
-format_all_projects <- function(project) {
+format_all_projects <- function(x) {
   data.frame(
-    project_id = project$projectData$id,
-    project_name = project$projectData$name,
-    project_description = NA,
-    start_date = project$projectData$start_date,
-    end_date = ifelse(is.null(project$projectData$end_date), NA, project$projectData$end_date)
+    project_id = x$projectData$id,
+    project_name = x$projectData$name,
+    start_date = x$projectData$start_date,
+    end_date = ifelse(is.null(x$projectData$end_date), NA, x$projectData$end_date)
   )
 }
 
@@ -107,15 +96,14 @@ project_details.character <- function(project_id, raw = FALSE) {
 
 #' @export
 project_details.numeric <- function(project_id, raw = FALSE) {
+  check_id(project_id, "project_id")
+
   if (!(raw == TRUE | raw == FALSE)) {
     stop(paste("`raw` must be TRUE or FALSE, not", raw), call. = FALSE)
   }
 
-  check_id(project_id, "project_id")
-
   res <- get_project_route(project_id) |>
-    sims_request() |>
-    resp_body_json()
+    sims_req_from_json()
 
   if (!raw) {
     res <- format_project(res)

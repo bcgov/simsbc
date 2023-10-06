@@ -4,7 +4,8 @@ get_login_route <- function() {
 }
 
 # Project routes
-get_users_projects_route <- function(user_id) {
+get_users_projects_route <- function() {
+  user_id <- pkg.env$simsbc_auth$user$system_user_id
   return(paste0("api/user/", user_id, "/projects/get"))
 }
 get_all_projects_route <- function() {
