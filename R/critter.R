@@ -19,15 +19,11 @@ animals.default <- function(survey_id, project_id, raw = FALSE) {
 
 #' @export
 animals.numeric <- function(survey_id, project_id, raw = FALSE) {
-  check_id(survey_id, 'survey_id')
-  check_id(project_id, 'project_id')
+  check_id(survey_id, "survey_id")
+  check_id(project_id, "project_id")
 
   res <- get_survey_critters_route(survey_id, project_id) |>
-    sims_request() |>
-    resp_body_json()
-
-  # names(res) <- lapply(res, function(x) paste(x$critter_id))
-
+    sims_req_from_json()
 
   if (length(res) == 0) {
     message(paste0("There are no Marked or Known Animals in Survey ", survey_id))
@@ -75,29 +71,22 @@ animal_details.default <- function(critter_id, survey_id, project_id, raw = FALS
 
 #' @export
 animal_details.character <- function(critter_id, survey_id, project_id, raw = FALSE) {
-  res <- tryCatch(
-    {
-      animals(survey_id, project_id, raw = TRUE)
-    },
-    error = function(error) {
-      message(paste0("Could not find Critter ", critter_id))
-    },
-    warning = function(warning) {
-      warnings
-    }
-  )
+  check_id(survey_id, "survey_id")
+  check_id(project_id, "project_id")
 
-  if (!inherits(res, "try-error")) {
-    c <- res |>
-      lapply(function(x) x[x$critter_id == critter_id]) |>
-      purrr:::compact()
+  c <- animals(survey_id, project_id, raw = TRUE) |>
+    lapply(function(x) x[x$critter_id == critter_id]) |>
+    purrr::compact()
 
-    c <- c[[1]]
+  if (length(c) != 1) stop(paste("Could not find Critter", critter_id))
 
-    if (!raw) {
-      c <- format_critter(c)
-    }
-    as.animal(c)
+  if (!raw) {
+    c <- c |>
+      lapply(format_critter)
+  }
+
+  if (length(c) == 1) {
+    as.animal(c[[1]])
   }
 }
 
