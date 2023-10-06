@@ -4,7 +4,7 @@
 \alias{projects}
 \title{Title}
 \usage{
-projects(all = FALSE)
+projects(all = FALSE, raw = FALSE)
 }
 \arguments{
 \item{...}{}

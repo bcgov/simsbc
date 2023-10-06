@@ -1,19 +1,11 @@
-#
+#'
 sims_req_from_json <- function(route) {
   route |>
     sims_request() |>
     resp_body_json()
 }
 
-# Format https requests for SIMS
-#' Title
 #'
-#' @param req_url
-#' @param client
-#'
-#' @import dplyr
-#'
-#' @examples
 sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
   check_internet()
   check_auth()
@@ -29,7 +21,8 @@ sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
     silent = T
   )
 
-  if ("500" %in% res | inherits(res, "try-error")) stop("Sorry, something went wrong! The data you requested might not exist.")
+  # Once SIMS has more granular error handling, update to check for specific error codes, ie. 500, 501, etc.
+  if (inherits(res, "try-error")) stop("Sorry, something went wrong! The data you requested might not exist.")
 
   res
 }

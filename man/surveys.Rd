@@ -4,7 +4,7 @@
 \alias{surveys}
 \title{Title}
 \usage{
-surveys(project_id)
+surveys(project_id, raw = FALSE)
 }
 \arguments{
 \item{project_id}{}

@@ -13,26 +13,31 @@ projects <- function(all = FALSE, raw = FALSE) {
 
 #' @export
 projects.default <- function(all = FALSE, raw = FALSE) {
-  stop(paste0("No projects method for an object of class ", class(all)),
-    call. = FALSE
-  )
+  stop(paste("`all` must be TRUE or FALSE, not", all), call. = FALSE)
 }
 
 #' @export
 projects.logical <- function(all = FALSE, raw = FALSE) {
-  if (!(all == TRUE | all == FALSE)) {
-    stop(paste("`all` must be TRUE or FALSE, not", all), call. = FALSE)
-  }
+  check_raw(raw)
 
   if (all) {
-    get_projects_helper(get_all_projects_route(), format_FUN = format_all_projects, 'You do not have access to any Projects', raw = raw)
+    get_projects_helper(
+      get_all_projects_route(),
+      format_FUN = format_all_projects,
+      "You do not have access to any Projects",
+      raw = raw
+    )
   } else {
-    get_projects_helper(get_users_projects_route(), format_FUN = format_personal_projects, 'You do not have any Projects', raw = raw)
+    get_projects_helper(
+      get_users_projects_route(),
+      format_FUN = format_personal_projects,
+      "You do not have any Projects",
+      raw = raw
+    )
   }
 }
 
-#'
-get_projects_helper <- function(route, format_FUN, message, raw){
+get_projects_helper <- function(route, format_FUN, message, raw) {
   resp <- route |>
     sims_req_from_json()
 
@@ -47,8 +52,6 @@ get_projects_helper <- function(route, format_FUN, message, raw){
   resp
 }
 
-#'
-#' @keywords internal
 format_personal_projects <- function(x) {
   data.frame(
     project_id = x$project_id,
@@ -56,8 +59,6 @@ format_personal_projects <- function(x) {
   )
 }
 
-#'
-#' @keywords internal
 format_all_projects <- function(x) {
   data.frame(
     project_id = x$projectData$id,
@@ -84,23 +85,15 @@ project_details <- function(project_id, raw = FALSE) {
 
 #' @export
 project_details.default <- function(project_id, raw = FALSE) {
-  stop(paste0("No project_details method for an object of class ", class(project_id)),
+  stop(paste("`project_id` must be a positive integer, not of class", class(project_id)),
     call. = FALSE
   )
 }
 
 #' @export
-project_details.character <- function(project_id, raw = FALSE) {
-  stop("`project_id` must be a positive integer, not a character", call. = FALSE)
-}
-
-#' @export
 project_details.numeric <- function(project_id, raw = FALSE) {
   check_id(project_id, "project_id")
-
-  if (!(raw == TRUE | raw == FALSE)) {
-    stop(paste("`raw` must be TRUE or FALSE, not", raw), call. = FALSE)
-  }
+  check_raw(raw)
 
   res <- get_project_route(project_id) |>
     sims_req_from_json()
@@ -109,20 +102,14 @@ project_details.numeric <- function(project_id, raw = FALSE) {
     res <- format_project(res)
   }
 
-  res$surveys <- surveys(project_id) |>
-    nrow()
-
   as.project(res)
 }
 
-#'
-#' @keywords internal
 as.project <- function(x) {
   class(x) <- "project"
   x
 }
 
-#'
 format_project <- function(x) {
   x
 }

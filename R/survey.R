@@ -6,36 +6,36 @@
 #' @export
 #'
 #' @examples
-surveys <- function(project_id) {
+surveys <- function(project_id, raw = FALSE) {
   UseMethod("surveys")
 }
 
 #' @export
-surveys.default <- function(project_id) {
-  check_id(project_id, "project_id")
-
+surveys.default <- function(project_id, raw = FALSE) {
   stop(paste0("No surveys method for an object of class ", class(project_id)),
     call. = FALSE
   )
 }
 
 #' @export
-surveys.numeric <- function(project_id) {
+surveys.numeric <- function(project_id, raw = FALSE) {
+  check_id(project_id, "project_id")
+
   resp <- get_all_surveys_route(project_id) |>
     sims_req_from_json()
 
   if (length(resp) == 0) {
     message(paste0("There are no Surveys in Project ", project_id))
   } else {
-    resp <- lapply(resp, format_surveys) |>
-      bind_rows()
+    if (!raw) {
+      resp <- lapply(resp, format_surveys) |>
+        bind_rows()
+    }
   }
 
   resp
 }
 
-#'
-#' @keywords internal
 format_surveys <- function(x) {
   details <- x$surveyData$survey_details
 
@@ -73,11 +73,6 @@ survey_details.default <- function(survey_id, project_id, raw = FALSE) {
     call. = FALSE
   )
 }
-#'
-#' #' @export
-#' survey_details.character <- function(survey_id, project_id, raw = FALSE){
-#'   stop("`survey_id` must be a positive integer, not a character", call. = FALSE)
-#' }
 
 #' @export
 survey_details.numeric <- function(survey_id, project_id, raw = FALSE) {
@@ -98,15 +93,11 @@ survey_details.numeric <- function(survey_id, project_id, raw = FALSE) {
   as.survey(res)
 }
 
-#'
-#' @keywords internal
 as.survey <- function(x) {
   class(x) <- "survey"
   x
 }
 
-#'
-#' @keywords internal
 format_survey <- function(x) {
   x
 }

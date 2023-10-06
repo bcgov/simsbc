@@ -21,6 +21,7 @@ animals.default <- function(survey_id, project_id, raw = FALSE) {
 animals.numeric <- function(survey_id, project_id, raw = FALSE) {
   check_id(survey_id, "survey_id")
   check_id(project_id, "project_id")
+  check_raw(raw)
 
   res <- get_survey_critters_route(survey_id, project_id) |>
     sims_req_from_json()
@@ -73,6 +74,7 @@ animal_details.default <- function(critter_id, survey_id, project_id, raw = FALS
 animal_details.character <- function(critter_id, survey_id, project_id, raw = FALSE) {
   check_id(survey_id, "survey_id")
   check_id(project_id, "project_id")
+  check_raw(raw)
 
   c <- animals(survey_id, project_id, raw = TRUE) |>
     lapply(function(x) x[x$critter_id == critter_id]) |>
