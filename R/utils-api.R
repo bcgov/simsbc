@@ -26,3 +26,61 @@ sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
 
   res
 }
+
+### Variables
+
+#'
+get_keycloak_client_id <- function() "sims-4461"
+
+#'
+get_keycloak_token_url <- function() "https://dev.loginproxy.gov.bc.ca/auth/realms/standard/protocol/openid-connect/token"
+
+#'
+get_keycloak_auth_url <- function() "https://dev.loginproxy.gov.bc.ca/auth/realms/standard/protocol/openid-connect/auth"
+
+#'
+get_sims_api_route <- function() "https://api-dev-biohubbc.apps.silver.devops.gov.bc.ca/"
+
+#'
+get_cb_api_route <- function() "https://api-dev-critterbase.apps.silver.devops.gov.bc.ca/"
+
+### SIMS Routes
+
+# Login routes
+get_login_route <- function() {
+  return("api/user/self")
+}
+
+# Project routes
+get_users_projects_route <- function() {
+  user_id <- pkg.env$simsbc_auth$user$system_user_id
+  return(paste0("api/user/", user_id, "/projects/get"))
+}
+get_all_projects_route <- function() {
+  return("api/project/list")
+}
+get_project_route <- function(project_id) {
+  return(paste0("api/project/", project_id, "/view"))
+}
+
+# Survey routes
+get_all_surveys_route <- function(project_id) {
+  return(paste0("api/project/", project_id, "/survey/list"))
+}
+get_survey_route <- function(survey_id, project_id) {
+  return(paste0("api/project/", project_id, "/survey/", survey_id, "/view"))
+}
+
+# Critter routes
+get_survey_critters_route <- function(survey_id, project_id){
+  return(paste0("api/project/", project_id, "/survey/", survey_id, "/critters"))
+}
+get_critter_route <- function(critter_id){
+  # return(paste0("api/project/", project_id, "/survey/", survey_id, "/critters/", critter_id))
+  return(paste0("api/critter-data/critters/", critter_id))
+}
+
+# Critter attribute routes
+get_critter_measurements <- function(critter_id){
+  return(paste0("api/measurements/", critter_id))
+}

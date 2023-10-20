@@ -2,18 +2,18 @@
 
 # simsbc
 
-*simsbc* provides access to biodiversity data and projects from British
-Columbia’s Species Inventory Management System (SIMS).
+*simsbc* provides access to biodiversity data and survey information
+from British Columbia’s [Species Inventory Management System
+(SIMS)](https://sims.nrs.gov.bc.ca).
 
-SIMS is a web application for managing, submitting, and accessing
-biodiversity data in British Columbia. It is designed for biologists
-working for or in partnership with the Province, supporting
-relationships between government, industry, Indigenous communities, and
-consultants to advance natural resource stewardship.
+SIMS is a web application for managing, sharing, and accessing fish and
+wildlife data in British Columbia. It is designed for biologists working
+for or in partnership with the Province.
 
 The *simsbc* R package complements the web application by loading SIMS
-data directly into R, removing the need to import and export
-intermediate files and enabling real-time dashboards and analytics.
+data directly into R, removing the need to download and share data using
+intermediate files. The package also makes it easy to build R Shiny
+applications involving data from SIMS.
 
 ### Installation
 
@@ -23,7 +23,6 @@ You can install *simsbc* from GitHub using the
 ``` r
 install.packages("remotes")
 
-# Install the simsbc package from GitHub
 remotes::install_github("bcgov/simsbc")
 
 library(simsbc)
@@ -31,7 +30,7 @@ library(simsbc)
 
 ### Usage
 
-- (Get data)\[get_data.html\]
+- [Get data](https://bcgov.github.io/simsbc/articles/get_data.html)
 
 ### Roadmap
 
