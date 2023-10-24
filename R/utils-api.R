@@ -81,6 +81,16 @@ get_critter_route <- function(critter_id){
 }
 
 # Critter attribute routes
-get_critter_measurements <- function(critter_id){
-  return(paste0("api/measurements/", critter_id))
+# get_critter_measurements <- function(critter_id){
+#   return(paste0("api/measurements/", critter_id))
+# }
+
+#
+get_telemetry_deployments_route <- function(survey_id, project_id) {
+  return(paste0("api/project/", project_id, "/survey/", survey_id, "/deployments"))
+}
+
+# Telemetry routes
+get_telemetry_device_route <- function(device_id){
+  return(paste0("api/telemetry/device/", device_id))
 }

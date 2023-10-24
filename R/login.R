@@ -13,6 +13,7 @@ login_sims <- function() {
     {
       res <- request(paste0(get_sims_api_route(), get_login_route())) |>
         req_oauth_auth_code(client, auth_url = get_keycloak_auth_url()) |>
+        req_retry(max_tries = 2) |>
         req_perform()
 
       res_body <- res |>
