@@ -19,7 +19,7 @@ has_auth <- function() {
 
 #'
 check_auth <- function() {
-  if (!has_auth()) stop("You are not logged in. Call `login_sims()` and try again.", call. = F)
+  if (!has_auth()) stop("You are not logged in. Call `login_simsbc()` and try again.", call. = F)
 }
 
 #'

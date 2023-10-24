@@ -29,7 +29,7 @@ telemetry.numeric <- function(survey_id, project_id, raw = FALSE) {
     message(paste0("There are no Deployments in Survey ", survey_id))
   } else {
     if (!raw) {
-      resp <- lapply(resp, format_surveys) |>
+      resp <- lapply(resp, format_deployments) |>
         bind_rows()
     }
   }
@@ -38,13 +38,15 @@ telemetry.numeric <- function(survey_id, project_id, raw = FALSE) {
 }
 
 format_deployments <- function(x) {
+  print(x)
+
   df <- data.frame(
     assignment_id = x$assignment_id,
     critter_id = x$critter_id,
     device_id = x$device_id,
     device_make = x$device_make,
     frequency = x$frequency,
-    frequency_unit = x$frequency_unit,
+    frequency_unit = ifelse(is.null(x$frequency_unit), NA, x$frequency_unit)
   )
 
   df

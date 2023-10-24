@@ -3,7 +3,7 @@
 #' @return List
 #' @import httr2
 #' @export
-login_sims <- function() {
+login_simsbc <- function() {
   client <- oauth_client(
     id = get_keycloak_client_id(),
     token_url = get_keycloak_token_url()
@@ -13,7 +13,7 @@ login_sims <- function() {
     {
       res <- request(paste0(get_sims_api_route(), get_login_route())) |>
         req_oauth_auth_code(client, auth_url = get_keycloak_auth_url()) |>
-        req_retry(max_tries = 2) |>
+        # req_retry(max_tries = 2, is_transient = ~ !is.null(.x)) |>
         req_perform()
 
       res_body <- res |>
