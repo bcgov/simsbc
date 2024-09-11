@@ -1,24 +1,32 @@
 #'
-sims_req_from_json <- function(route) {
+sims_req_from_json <- function(route, method = 'GET', body = NULL) {
   route |>
-    sims_request() |>
+    sims_request(route, method, body) |>
     resp_body_json()
 }
 
 #'
-sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
+sims_request <- function(route, method, body, client = pkg.env$simsbc_auth$client) {
   check_internet()
   check_auth()
 
-  full_route <- paste0(get_sims_api_route(), req_url)
+  full_route <- paste0(get_sims_api_route(), route)
 
   res <- try(
     {
-      request(full_route) |>
+      req <- request(full_route) |>
         req_oauth_auth_code(client = client, auth_url = get_keycloak_auth_url()) |>
-        req_perform()
+        req_method(method)  # Specify the method as POST
+      
+      # Add the body if provided
+      if (!is.null(body) & method == 'POST') {
+        req <- req |>
+          req_body_json(body)  # Use JSON body for POST requests
+      }
+      
+      req |> req_perform()
     },
-    silent = T
+    silent = F
   )
 
   # Once SIMS has more granular error handling, update to check for specific error codes, ie. 500, 501, etc.
@@ -33,16 +41,16 @@ sims_request <- function(req_url, client = pkg.env$simsbc_auth$client) {
 get_keycloak_client_id <- function() "sims-4461"
 
 #'
-get_keycloak_token_url <- function() "https://dev.loginproxy.gov.bc.ca/auth/realms/standard/protocol/openid-connect/token"
+get_keycloak_token_url <- function() "https://loginproxy.gov.bc.ca/auth/realms/standard/protocol/openid-connect/token"
 
 #'
-get_keycloak_auth_url <- function() "https://dev.loginproxy.gov.bc.ca/auth/realms/standard/protocol/openid-connect/auth"
+get_keycloak_auth_url <- function() "https://loginproxy.gov.bc.ca/auth/realms/standard/protocol/openid-connect/auth"
 
 #'
-get_sims_api_route <- function() "https://api-dev-biohubbc.apps.silver.devops.gov.bc.ca/"
+get_sims_api_route <- function() "https://api-biohubbc.apps.silver.devops.gov.bc.ca/"
 
 #'
-get_cb_api_route <- function() "https://api-dev-critterbase.apps.silver.devops.gov.bc.ca/"
+get_cb_api_route <- function() "https://moe-critterbase-api-prod.apps.silver.devops.gov.bc.ca/"
 
 ### SIMS Routes
 
@@ -81,6 +89,11 @@ get_critter_route <- function(critter_id){
 }
 
 # Critter attribute routes
-get_critter_measurements <- function(critter_id){
-  return(paste0("api/measurements/", critter_id))
+get_survey_deployments_route <- function(project_id, survey_id){
+  return(paste0("api/project/", project_id, "/survey/", survey_id, "/deployments"))
+}
+
+# Telemetry routes
+get_telemetry_route <- function(deploymentIds){
+  return(paste0("api/telemetry/", deploymentIds))
 }

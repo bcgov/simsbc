@@ -9,6 +9,9 @@ animals(survey_id, project_id, raw = FALSE)
 \arguments{
 \item{animal_id}{}
 }
+\value{
+A data frame or nested list containing information baout animals in the survey
+}
 \description{
 Title
 }

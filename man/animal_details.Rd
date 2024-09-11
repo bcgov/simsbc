@@ -9,6 +9,9 @@ animal_details(critter_id, survey_id, project_id, raw = FALSE)
 \arguments{
 \item{critter_id}{}
 }
+\value{
+A nested list of information about a specific animal
+}
 \description{
 Title
 }
