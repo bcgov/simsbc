@@ -1,7 +1,7 @@
 #'
 sims_req_from_json <- function(route, method = 'GET', body = NULL) {
   route |>
-    sims_request(method, body) |>
+    sims_request(route, method, body) |>
     resp_body_json()
 }
 
