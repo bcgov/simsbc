@@ -2,10 +2,8 @@
 #'
 #' @param animal_id
 #'
-#' @return
+#' @return A data frame or nested list containing information baout animals in the survey
 #' @export
-#'
-#' @examples
 animals <- function(survey_id, project_id, raw = FALSE) {
   UseMethod("animals")
 }
@@ -55,10 +53,8 @@ format_critters <- function(x) {
 #'
 #' @param critter_id
 #'
-#' @return
+#' @return A nested list of information about a specific animal
 #' @export
-#'
-#' @examples
 animal_details <- function(critter_id, survey_id, project_id, raw = FALSE) {
   UseMethod("animal_details")
 }
