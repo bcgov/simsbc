@@ -1,63 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bcgov.github.io/simsbc/404.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/articles/create_report.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/articles/get_data.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/articles/simsbc.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/animal_details.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/animals.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/create_report_template.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/login_sims.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/project_details.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/projects.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/survey_details.html</loc>
-  </url>
-  <url>
-    <loc>https://bcgov.github.io/simsbc/reference/surveys.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://bcgov.github.io/simsbc/404.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/CONTRIBUTING.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/LICENSE-text.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/articles/create_report.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/articles/get_data.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/articles/index.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/articles/simsbc.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/authors.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/index.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/news/index.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/animal_details.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/animals.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/create_report_template.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/deployments.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/index.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/login_sims.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/project_details.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/projects.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/survey_details.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/surveys.html</loc></url>
+<url><loc>https://bcgov.github.io/simsbc/reference/telemetry.html</loc></url>
 </urlset>
+
